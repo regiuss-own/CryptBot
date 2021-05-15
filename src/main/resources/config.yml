@@ -15,8 +15,8 @@ DEBUG: false
   #1-anti-captcha
   #2-capmonster
   type: 2
-  AntiCaptchaAPIKey: "b22df562743727112cb20c55f32b0498"
-  CapmonsterAPIKey: "28b7cd2622ed391b73d57e922643a5ac"
+  AntiCaptchaAPIKey: "key"
+  CapmonsterAPIKey: "key"
 
 WaxAccountLogin:
   try_count: 50 #Количество попыток входа
