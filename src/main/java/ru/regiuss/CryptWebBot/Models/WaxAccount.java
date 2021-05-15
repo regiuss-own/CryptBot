@@ -78,7 +78,7 @@ public class WaxAccount {
     }
 
 
-    public JSONObject GetAccountResources() throws IOException, InterruptedException {
+    public JSONObject GetAccountResources() throws IOException {
         URL url = new URL("https://wax.greymass.com/v1/chain/get_account");
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
         con.setRequestProperty("user-agent", "Mozilla/5.0");
@@ -124,7 +124,7 @@ public class WaxAccount {
         return new JSONObject(res);*/
     }
 
-    public JSONArray GetActions() throws IOException, InterruptedException {
+    public JSONArray GetActions() throws IOException {
         URL url = new URL("https://wax.greymass.com/v1/history/get_actions");
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
         con.setRequestProperty("origin", "https://wax.bloks.io");
@@ -158,9 +158,6 @@ public class WaxAccount {
     /**
      * Авторизация на сайте
      * @return true/false успех авторизации
-     * @throws IOException
-     * @throws JSONException
-     * @throws InterruptedException
      */
     public boolean Login() throws IOException, JSONException, InterruptedException {
         String captcha = null;
@@ -173,7 +170,7 @@ public class WaxAccount {
             captcha = Utils.SolveCaptchaV2(this.login);
         }
 
-        ConsoleMessage.out(captcha, ConsoleMessage.Type.SUCCESS);
+        //ConsoleMessage.out(captcha, ConsoleMessage.Type.SUCCESS);
 
         if(captcha == null){
             return false;
