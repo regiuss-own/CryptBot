@@ -10,8 +10,6 @@ import ru.regiuss.CryptWebBot.Utils.Utils;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 
 public class Main {
@@ -53,7 +51,7 @@ public class Main {
                 if(Settings.AUTO_UPDATE){
                     try{
                         //Runtime.getRuntime().exec("cmd /c start cmd /k java -jar " + Paths.get("Update.jar") + " " + last_version);
-                        new ProcessBuilder("cmd", "/c", "start cmd /k java -jar " + Paths.get("Update.jar") + " " + last_version).inheritIO().start();
+                        new ProcessBuilder("cmd", "/c", "start java -jar " + Paths.get("Update.jar") + " " + last_version).inheritIO().start();
                     }catch (Exception e){
                         System.out.println(Colors.RED + "Ошибка при обновлении программы");
                         Utils.ConsolePause();
@@ -78,13 +76,13 @@ public class Main {
         BufferedReader br = new BufferedReader(fr);
         String line;
         int account_count = 0;
-        List<Bot> bots = new ArrayList<>();
+        //List<Bot> bots = new ArrayList<>();
         try {
             while ((line = br.readLine()) != null){
                 String[] data = line.split(":");
                 //ConsoleMessage.out(line, ConsoleMessage.Type.DEBUG);
                 Bot bot = new Bot(new WaxAccount(data[0], data[1],data[2]));
-                bots.add(bot);
+                //bots.add(bot);
                 bot.start();
                 //new WaxAccount(data[0], data[1],data[2]).Login();
                 account_count++;

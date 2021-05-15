@@ -28,23 +28,10 @@ public class WaxAccount {
         this.fa2token = fa2token;
         this.session = new CookieManager(null, CookiePolicy.ACCEPT_ALL);
         CookieHandler.setDefault(this.session);
-
-        //ChromeOptions chromeProfile = new ChromeOptions();
-        //chromeProfile.addArguments("headless");
-
-        //this.driver = new ChromeDriver(chromeProfile);
     }
 
     public String getLogin() {
         return login;
-    }
-
-    public String getFa2token() {
-        return fa2token;
-    }
-
-    public String getAccount_name() {
-        return account_name;
     }
 
     public void setAccount_name(String account_name) {
@@ -65,16 +52,6 @@ public class WaxAccount {
                 new URI("wax.io"),
                 new HttpCookie("session_token", this.token)
         );
-    }
-    /*public WebDriver getDriver() {
-        return this.driver;
-    }*/
-    public String getPassword() {
-        return password;
-    }
-
-    public CookieManager getSession() {
-        return session;
     }
 
 
@@ -105,23 +82,6 @@ public class WaxAccount {
         in.close();
         con.disconnect();
         return null;
-
-
-        /*Process p = Runtime.getRuntime().exec(String.format("py %s\\cloudflare.py WaxWalletResources %s",System.getProperty("user.dir"), account_name));
-        p.waitFor();
-
-        BufferedReader stdInput = new BufferedReader(new
-                InputStreamReader(p.getInputStream()));
-
-        String s = null;
-        String res = "";
-        while ((s = stdInput.readLine()) != null) {
-            ConsoleMessage.out(s, ConsoleMessage.Type.DEBUG);
-            res = s;
-        }
-
-        ConsoleMessage.out(res, ConsoleMessage.Type.DEBUG);
-        return new JSONObject(res);*/
     }
 
     public JSONArray GetActions() throws IOException {
