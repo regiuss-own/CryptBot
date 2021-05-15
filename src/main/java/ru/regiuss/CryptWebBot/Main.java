@@ -63,8 +63,9 @@ public class Main {
                     }
                     return;
                 }
+            }else{
+                System.out.println(Colors.GREEN + "Вы используете последнюю версию!");
             }
-            System.out.println(Colors.GREEN + "Вы используете последнюю версию!");
         }
         System.out.println(Colors.YELLOW + "Загрузка аккаунтов..." + Colors.RESET);
 
