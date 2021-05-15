@@ -17,12 +17,6 @@ import java.util.logging.Level;
 public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-
-        /*WaxAccount s = new WaxAccount("asdsa", "asdas", "sad");
-        s.setAccount_name("fqlcu.wam");
-        s.GetActions();
-
-        if(true)return;*/
         AnsiConsole.systemInstall();
 
         System.setProperty("webdriver.chrome.silentOutput", "true");
@@ -30,7 +24,7 @@ public class Main {
         System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
 
-        Settings.VERSION = "1.42";
+        Settings.VERSION = "1.43";
 
         System.out.println("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
         System.out.println("░█████╗░██████╗░██╗░░░██╗██████╗░████████╗██████╗░░█████╗░████████╗");
@@ -46,6 +40,7 @@ public class Main {
             Settings.LoadSettings();
         }catch (Exception e){
             System.out.println(Colors.RED + "Ошибка в файле конфигурации. Удалите текущий config.yml для создания нового" + Colors.RESET);
+            Utils.ConsolePause();
             return;
         }
         System.out.println(Colors.GREEN + "Настройка завершена!");
@@ -57,9 +52,11 @@ public class Main {
                 System.out.println(Colors.YELLOW + "Доступна новая версия программы!");
                 if(Settings.AUTO_UPDATE){
                     try{
-                        Runtime.getRuntime().exec("cmd /c start cmd /k java -jar " + Paths.get("Update.jar") + " " + last_version);
+                        //Runtime.getRuntime().exec("cmd /c start cmd /k java -jar " + Paths.get("Update.jar") + " " + last_version);
+                        new ProcessBuilder("cmd", "/c", "start cmd /k java -jar " + Paths.get("Update.jar") + " " + last_version).inheritIO().start();
                     }catch (Exception e){
                         System.out.println(Colors.RED + "Ошибка при обновлении программы");
+                        Utils.ConsolePause();
                     }
                     return;
                 }
@@ -75,6 +72,7 @@ public class Main {
             fr = new FileReader(accounts);
         } catch (FileNotFoundException e) {
             ConsoleMessage.out("Файл с аккаунтами(accounts.txt) не найден", ConsoleMessage.Type.ERROR);
+            Utils.ConsolePause();
             return;
         }
         BufferedReader br = new BufferedReader(fr);
@@ -93,6 +91,7 @@ public class Main {
             }
         }catch (Exception e){
             e.printStackTrace();
+            Utils.ConsolePause();
         }
         System.out.println("Загружено аккаунтов: " + Colors.CYAN + account_count + Colors.RESET);
     }

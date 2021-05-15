@@ -344,4 +344,8 @@ public class Utils {
         con.disconnect();
         return new JSONObject(res).getString("tag_name");
     }
+
+    public static void ConsolePause() throws IOException, InterruptedException {
+        new ProcessBuilder("cmd", "/c", "pause").inheritIO().start().waitFor();
+    }
 }
