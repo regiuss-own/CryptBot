@@ -6,7 +6,7 @@
 
     <groupId>ru.regiuss</groupId>
     <artifactId>CryptWebBot</artifactId>
-    <version>1.43</version>
+    <version>1.50</version>
     <packaging>jar</packaging>
 
     <properties>

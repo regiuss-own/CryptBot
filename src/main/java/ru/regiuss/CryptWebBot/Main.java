@@ -22,7 +22,7 @@ public class Main {
         System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
         java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
 
-        Settings.VERSION = "1.43";
+        Settings.VERSION = "1.50";
 
         System.out.println("░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");
         System.out.println("░█████╗░██████╗░██╗░░░██╗██████╗░████████╗██████╗░░█████╗░████████╗");
