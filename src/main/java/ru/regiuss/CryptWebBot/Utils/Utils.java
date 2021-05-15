@@ -328,8 +328,8 @@ public class Utils {
         return res;
     };
 
-    public static boolean CheckUpdate() throws IOException {
-        URL url = new URL("https://api.github.com/repos/OwlCarousel2/OwlCarousel2/releases/latest");
+    public static String CheckUpdate() throws IOException {
+        URL url = new URL("https://api.github.com/repos/ReGius-igmt/CryptBot/releases/latest");
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
         con.setRequestMethod("GET");
 
@@ -342,7 +342,6 @@ public class Utils {
         }
         in.close();
         con.disconnect();
-        String version =new JSONObject(res).getString("tag_name");
-        return !version.equals(Settings.VERSION);
+        return new JSONObject(res).getString("tag_name");
     }
 }

@@ -41,13 +41,23 @@ public class Main {
         System.out.println("░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░░░░░░╚═╝░░░╚═════╝░░╚════╝░░░░╚═╝░░░");
         System.out.println("░░░░░░░░░░░░░░░░░░░░░░░░ " + (Colors.CYAN) + "V " + Settings.VERSION + " BY REGIUSS" + (Colors.RESET) + " ░░░░░░░░░░░░░░░░░░░░░░░░\n");
 
+        System.out.println(Colors.YELLOW + "Настройка..." + Colors.RESET);
+        try{
+            Settings.LoadSettings();
+        }catch (Exception e){
+            System.out.println(Colors.RED + "Ошибка в файле конфигурации. Удалите текущий config.yml для создания нового" + Colors.RESET);
+            return;
+        }
+        System.out.println(Colors.GREEN + "Настройка завершена!");
+
         if(Settings.CHECK_UPDATE){
             System.out.println(Colors.YELLOW + "Проверка наличия обновлений...");
-            if(Utils.CheckUpdate()){
+            String last_version = Utils.CheckUpdate();
+            if(!last_version.equals(Settings.VERSION)){
                 System.out.println(Colors.YELLOW + "Доступна новая версия программы!");
                 if(Settings.AUTO_UPDATE){
                     try{
-                        Runtime.getRuntime().exec("cmd /c start cmd /k java -jar " + Paths.get("Update.jar"));
+                        Runtime.getRuntime().exec("cmd /c start cmd /k java -jar " + Paths.get("Update.jar") + " " + last_version);
                     }catch (Exception e){
                         System.out.println(Colors.RED + "Ошибка при обновлении программы");
                     }
@@ -56,16 +66,6 @@ public class Main {
             }
             System.out.println(Colors.GREEN + "Вы используете последнюю версию!");
         }
-        System.out.println(Colors.YELLOW + "Настройка..." + Colors.RESET);
-
-        try{
-            Settings.LoadSettings();
-        }catch (Exception e){
-            System.out.println(Colors.RED + "Ошибка в файле конфигурации. Удалите текущий config.yml для создания нового" + Colors.RESET);
-            return;
-        }
-
-        System.out.println(Colors.GREEN + "Настройка завершена!");
         System.out.println(Colors.YELLOW + "Загрузка аккаунтов..." + Colors.RESET);
 
         File accounts = new File("./accounts.txt");

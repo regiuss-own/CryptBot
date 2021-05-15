@@ -14,7 +14,7 @@ AutoUpdate: true
 #Настройка антикапчи
 Сaptcha:
   #Types:
-  #1-anti-captcha
+  #1-anti-captcha (для использования загрузите chromedriver)
   #2-capmonster
   type: 2
   AntiCaptchaAPIKey: "key"
