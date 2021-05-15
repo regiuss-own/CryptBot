@@ -29,6 +29,8 @@ public class Settings {
     public static boolean RESOURCES_CHECK;
     public static int RESOURCES_WAIT;
     public static int RESOURCES_MIN;
+    public static boolean CHECK_UPDATE;
+    public static boolean AUTO_UPDATE;
 
     public static void LoadSettings() throws IOException {
         cfg = new YamlConfigRunner();
@@ -47,5 +49,7 @@ public class Settings {
         Settings.RESOURCES_CHECK = (Boolean) cfg.get("Resources.check");
         Settings.RESOURCES_WAIT = (Integer) cfg.get("Resources.wait");
         Settings.RESOURCES_MIN = (Integer) cfg.get("Resources.min");
+        Settings.CHECK_UPDATE = (Boolean) cfg.get("CheckUpdate");
+        Settings.AUTO_UPDATE = (Boolean) cfg.get("AutoUpdate");
     }
 }

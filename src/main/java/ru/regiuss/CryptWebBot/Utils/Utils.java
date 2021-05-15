@@ -327,4 +327,22 @@ public class Utils {
         }
         return res;
     };
+
+    public static boolean CheckUpdate() throws IOException {
+        URL url = new URL("https://api.github.com/repos/OwlCarousel2/OwlCarousel2/releases/latest");
+        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(
+                new BufferedReader(new InputStreamReader(con.getResponseCode() / 100 == 2 ? con.getInputStream() : con.getErrorStream())));
+        String inputLine;
+        String res = "";
+        if ((inputLine = in.readLine()) != null) {
+            res += inputLine;
+        }
+        in.close();
+        con.disconnect();
+        String version =new JSONObject(res).getString("tag_name");
+        return !version.equals(Settings.VERSION);
+    }
 }
