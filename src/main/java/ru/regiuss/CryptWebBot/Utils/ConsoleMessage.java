@@ -1,74 +1,64 @@
 package ru.regiuss.CryptWebBot.Utils;
 
-import org.apache.commons.logging.impl.Log4JLogger;
-import ru.regiuss.CryptWebBot.Configurations.Settings;
+import ru.regiuss.CryptWebBot.Configurations.*;
+import java.text.*;
+import org.apache.logging.log4j.*;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
-public class ConsoleMessage {
-    public enum Type {
-        ERROR,
-        INFO,
-        SUCCESS,
-        DEBUG
-    }
-
-    private static Logger logger = LogManager.getLogger(ConsoleMessage.class);
-
-
-    /**
-     * Вывод сообщения в консоль
-     * @param text Текст сообщения
-     * @param type Тип сообщения ERROR, INFO, SUCCESS, DEBUG
-     */
-    public static void out(String text, Type type){
+public class ConsoleMessage
+{
+    private static final Logger logger;
+    
+    public static void out(final String text, final Type type) {
         out(text, type, null);
     }
-
-    public static void out(String text, Type type, String sender){
+    
+    public static void out(final String text, final Type type, String sender) {
         String outText = "";
-        DateFormat format = new SimpleDateFormat("[HH:mm:ss]");
-        outText += (format.format(System.currentTimeMillis()));
-
-        String logOutText = outText;
-
-        if(type.equals(Type.SUCCESS)){
-            outText += Colors.GREEN + "[SUCCESS]";
+        final DateFormat format = new SimpleDateFormat("[HH:mm:ss]");
+        String logOutText;
+        outText = (logOutText = outText + format.format(System.currentTimeMillis()));
+        if (sender != null) {
+            if (sender.length() > 15) {
+                sender = sender.substring(0, 15);
+            }
+            outText = outText + Colors.CYAN + "[" + sender + "]";
+            logOutText = logOutText + "[" + sender + "]";
+        }
+        if (type.equals(Type.SUCCESS)) {
+            outText = outText + Colors.GREEN + "[SUC]";
             logOutText += "[SUCCESS]";
         }
-        if(type.equals(Type.INFO)){
-            outText += Colors.YELLOW + "[INFO]";
+        if (type.equals(Type.INFO)) {
+            outText = outText + Colors.YELLOW + "[INF]";
             logOutText += "[INFO]";
         }
-        if(type.equals(Type.DEBUG)){
-            outText += Colors.WHITE + "[DEBUG]";
+        if (type.equals(Type.DEBUG)) {
+            outText = outText + Colors.WHITE + "[DEB]";
             logOutText += "[DEBUG]";
         }
-        if(type.equals(Type.ERROR)){
-            outText += Colors.RED + "[ERROR]";
+        if (type.equals(Type.ERROR)) {
+            outText = outText + Colors.RED + "[ERR]";
             logOutText += "[ERROR]";
         }
-
-        if(sender != null){
-            if(sender.length() > 15)sender = sender.substring(0, 15);
-            outText += Colors.CYAN + "[" + sender + "]";
-            logOutText += "[" + sender + "]";
-        }
-
         outText += Colors.RESET;
-
-        outText += " " + text;
-        logOutText += " " + text;
-
-        logger.info(logOutText);
-        if(type.equals(Type.DEBUG) && !Settings.DEBUG)return;
-
+        outText = outText + " " + text;
+        logOutText = logOutText + " " + text;
+        ConsoleMessage.logger.info(logOutText);
+        if (type.equals(Type.DEBUG) && !Settings.DEBUG) {
+            return;
+        }
         System.out.println(outText);
+    }
+    
+    static {
+        logger = LogManager.getLogger((Class)ConsoleMessage.class);
+    }
+    
+    public enum Type
+    {
+        ERROR, 
+        INFO, 
+        SUCCESS, 
+        DEBUG;
     }
 }
