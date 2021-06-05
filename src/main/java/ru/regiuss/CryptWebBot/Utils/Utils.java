@@ -22,11 +22,11 @@ public class Utils
             final DataOutputStream out = new DataOutputStream(con.getOutputStream());
             final JSONObject data = new JSONObject();
             final JSONObject task = new JSONObject();
-            task.put("type", (Object)"NoCaptchaTaskProxyless");
-            task.put("websiteURL", (Object)"https://all-access.wax.io/");
-            task.put("websiteKey", (Object)"6LdaB7UUAAAAAD2w3lLYRQJqsoup5BsYXI2ZIpFF");
-            data.put("clientKey", (Object)Settings.CAPMONSTER_API_KEY);
-            data.put("task", (Object)task);
+            task.put("type", "NoCaptchaTaskProxyless");
+            task.put("websiteURL", "https://all-access.wax.io/");
+            task.put("websiteKey", "6LdaB7UUAAAAAD2w3lLYRQJqsoup5BsYXI2ZIpFF");
+            data.put("clientKey", Settings.CAPMONSTER_API_KEY);
+            data.put("task", task);
             ConsoleMessage.out("SolveCaptchaV2 createTaskParams: " + data.toString(), ConsoleMessage.Type.DEBUG);
             out.writeBytes(data.toString());
             out.flush();
@@ -48,7 +48,7 @@ public class Utils
             return null;
         }
         if (response.getInt("errorId") != 0) {
-            ConsoleMessage.out("\u041e\u0448\u0438\u0431\u043a\u0430 \u043a\u0430\u043f\u0447\u0438 \u043a\u043e\u0434: " + response.toString(), ConsoleMessage.Type.ERROR, accountName);
+            ConsoleMessage.out("Ошибка капчи код: " + response.toString(), ConsoleMessage.Type.ERROR, accountName);
             return null;
         }
         final int taskID = response.getInt("taskId");
@@ -67,7 +67,7 @@ public class Utils
             Thread.sleep(5000L);
         }
     }
-    
+
     public static JSONObject GetCaptchaTaskResult(final int taskId) throws IOException, JSONException {
         final URL url = new URL("https://api.capmonster.cloud/getTaskResult/");
         final HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -92,7 +92,7 @@ public class Utils
         con.disconnect();
         return null;
     }
-    
+
     public static List<Integer> GetArrOfHexFromTheEnd(final String str, final int count) {
         final List<Integer> res = new ArrayList<Integer>();
         for (int i = str.length(); i > 0; i -= 2) {
@@ -103,7 +103,7 @@ public class Utils
         }
         return res;
     }
-    
+
     public static String GetReverseString(final String str, final int length) {
         final StringBuilder res = new StringBuilder();
         for (int i = str.length(); i > 0; i -= length) {
@@ -111,18 +111,18 @@ public class Utils
         }
         return res.toString();
     }
-    
+
     public static List<Integer> GetArrOfTimeStamp(final long ts) {
         return HexToList(GetReverseString(Long.toHexString(ts), 2));
     }
-    
+
     public static String getTOTPCode(final String secretKey) {
         final Base32 base32 = new Base32();
         final byte[] bytes = base32.decode(secretKey);
         final String hexKey = Hex.encodeHexString(bytes);
         return TOTP.getOTP(hexKey);
     }
-    
+
     public static String toHex(final List<Integer> buffer) {
         final List<String> res = new ArrayList<String>();
         for (int o : buffer) {
@@ -137,7 +137,7 @@ public class Utils
         }
         return String.join("", res);
     }
-    
+
     public static List<Integer> HexToList(final String str) {
         final char[] strChar = str.toCharArray();
         final List<Integer> res = new ArrayList<Integer>();
@@ -147,7 +147,7 @@ public class Utils
         }
         return res;
     }
-    
+
     public static List<Integer> getRand() {
         final List<Integer> res = new ArrayList<Integer>();
         for (int i = 0; i < 8; ++i) {
@@ -155,7 +155,7 @@ public class Utils
         }
         return res;
     }
-    
+
     public static int charToSymbol(final int c) {
         if (c >= 97 && c <= 122) {
             return c - 97 + 6;
@@ -165,7 +165,7 @@ public class Utils
         }
         return 0;
     }
-    
+
     public static String combinedToHex(final List<Integer> a) {
         final Iterator<Integer> iterator = a.iterator();
         final byte[] byteArray = new byte[24];
@@ -177,7 +177,7 @@ public class Utils
         }
         return Hashing.sha256().hashBytes(byteArray).toString();
     }
-    
+
     public static List<Integer> getArrayName(final String s) {
         final int[] a = new int[8];
         int bit = 63;
@@ -201,7 +201,7 @@ public class Utils
         }
         return res;
     }
-    
+
     public static String CheckUpdate() throws IOException {
         final URL url = new URL("https://api.github.com/repos/ReGius-igmt/CryptBot/releases/latest");
         final HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -216,15 +216,15 @@ public class Utils
         con.disconnect();
         return new JSONObject(res).getString("tag_name");
     }
-    
+
     public static void SaveDefaultFilesResource() throws IOException {
         final List<String> files = Arrays.asList("cloudflare.py", "Update.jar");
         for (final String fileName : files) {
             Files.copy(Objects.requireNonNull(Utils.class.getClassLoader().getResourceAsStream(fileName)), Paths.get(fileName, new String[0]), StandardCopyOption.REPLACE_EXISTING);
         }
     }
-    
+
     public static void ConsolePause() throws IOException, InterruptedException {
-        new ProcessBuilder(new String[] { "cmd", "/c", "pause" }).inheritIO().start().waitFor();
+        new ProcessBuilder("cmd", "/c", "pause").inheritIO().start().waitFor();
     }
 }

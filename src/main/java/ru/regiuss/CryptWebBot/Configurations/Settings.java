@@ -19,11 +19,11 @@ public class Settings
     public static boolean RESOURCES_CHECK;
     public static int RESOURCES_WAIT;
     public static int RESOURCES_MIN;
-    
+
     public static void LoadSettings() throws IOException {
         Settings.cfg = new YamlConfigRunner();
         Settings.DEBUG = (boolean)Settings.cfg.get("DEBUG");
-        Settings.CAPMONSTER_API_KEY = (String)Settings.cfg.get("\u0421aptcha.CapmonsterAPIKey");
+        Settings.CAPMONSTER_API_KEY = (String)Settings.cfg.get("Сaptcha.CapmonsterAPIKey");
         Settings.WAIT_LOGIN_WAX_ACCOUNT = (int)Settings.cfg.get("WaxAccountLogin.wait_login_wax_account");
         Settings.WAIT_LOGIN_WAX_ACCOUNT_5 = (int)Settings.cfg.get("WaxAccountLogin.wait_login_wax_account_5");
         Settings.LOGIN_WAX_ACCOUNT_COUNT = (int)Settings.cfg.get("WaxAccountLogin.try_count");
